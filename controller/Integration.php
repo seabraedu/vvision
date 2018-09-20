@@ -103,6 +103,26 @@ class Integration {
                 return $returnVulnHostarray;
             }
     }
+    /*---------------Inicio  integração  de Plugin Output ---------------*/
+    //Este metodo deverá ser chamado apenas sob demanda e não será realizado dump...
+    //O retorno deste método será um json para ser enviado ao JS para formatação.
+    public static function getScanVulnerabitiesPluginOutput ($token,$scanner,Scan $scan,Host $host,Vulnerability $vuln) {
+        $history=$scan->getHistory_of();
+        if (!isset($history))
+            $path = "/scans/".$scan->getId()."/hosts/".$host->getId()."/plugins/".$vuln->getPlugin_id();
+        else
+            $path = "/scans/".$scan->getHistory_of()."/hosts/".$host->getId()."/plugins/".$vuln->getPlugin_id()."?history_id=".$scan->getId();
+            $vuln_array = Integration::sendCurlGET($token, $scanner, $path);
+            //var_dump($array_scan_detail['history']);
+            if ( count($vuln_array)>0){
+                $returnVulnHostarray = $vuln_array;
+                return $returnVulnHostarray;
+            }
+    }
+    
+    
+    
+    
     
     
     

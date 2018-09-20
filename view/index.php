@@ -104,7 +104,7 @@ foreach ($scans as $scan) {
  
   
 //Listando todas vulnerabilidades de todos os host e todos scans e inserinfo no bando de dados
-
+/*
  $scanner = ScannerDAO::loadScannerById(1);
  $token = new Token();
  $scans = ScanDAO::listScans();
@@ -119,15 +119,33 @@ foreach ($scans as $scan) {
         }
      }
  }
+*/
+
+
+ $scanner = ScannerDAO::loadScannerById(1);
+ $token = new Token();
+
+ $scans = ScanDAO::loadScanById(465);
+ $host = HostDAO::loadHostById($scans, 2);
+ $vuln = new Vulnerability();
+ $vuln->setPlugin_id(102519);
+$pluginInfo=(Integration::getScanVulnerabitiesPluginOutput($token->getToken($scanner), $scanner, $scans, $host, $vuln));   
+
+
+ ?>
+
+
+<html>
+
+
+<body id="demo">
 
 
 
-
-
-
-
-
-
-
-
-?>
+</body>
+</html>
+<script>
+var pluginInfo= <?php json_encode($pluginInfo);?>
+//var obj = (pluginInfo); 
+document.getElementById("demo").innerHTML = pluginInfo.outputs; 
+</script>
