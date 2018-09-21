@@ -1,6 +1,6 @@
 <?php
-
-require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."Vvision".DIRECTORY_SEPARATOR.'config.php');
+//require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."Vvision".DIRECTORY_SEPARATOR.'config.php');
+require_once((str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT'])).'/'."Vvsion/".'config.php');
 /*
 //Inserindo novo scanner
 $scanner = new Scanner();
@@ -83,12 +83,12 @@ foreach ($scans as $scan) {
 */
 
 //Listando Hosts de um Scan e inserindo no banco de dados
-/*
+
  $scanner = ScannerDAO::loadScannerById(1);
  $token = new Token();
  $scan = ScanDAO::loadScanById(40);
-
-*/ 
+var_dump(ScanDAO::listScans());
+ 
 
 //Inserindo todos os hosts de todos os Scans -- tarefa demorada 50 segundos.
 /*
@@ -120,7 +120,7 @@ foreach ($scans as $scan) {
      }
  }
 */
-
+/*
 
  $scanner = ScannerDAO::loadScannerById(1);
  $token = new Token();
@@ -130,7 +130,7 @@ foreach ($scans as $scan) {
  $vuln = new Vulnerability();
  $vuln->setPlugin_id(102519);
 $pluginInfo=(Integration::getScanVulnerabitiesPluginOutput($token->getToken($scanner), $scanner, $scans, $host, $vuln));   
-
+*/
 
  ?>
 
