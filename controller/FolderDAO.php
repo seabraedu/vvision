@@ -1,5 +1,6 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."Vvision".DIRECTORY_SEPARATOR.'config.php');
+
 class FolderDAO{
     //lista todas as pastas cadastradas no banco de dados.
     public static function listFolders($scanner){

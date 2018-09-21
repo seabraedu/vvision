@@ -1,4 +1,7 @@
 <?php
+require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."Vvision".DIRECTORY_SEPARATOR.'config.php');
+
+
 class ScanDAO {
     //Retorna lista de todos os scan cadastrados no banco.
     public static function listScans():array {

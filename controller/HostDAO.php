@@ -1,4 +1,7 @@
 <?php
+
+require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."Vvision".DIRECTORY_SEPARATOR.'config.php');
+
 class HostDAO {
     public static function insert(Host $host) {
         $sql = new Sql();

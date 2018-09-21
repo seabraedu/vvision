@@ -1,6 +1,6 @@
 <?php
-//require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."Vvision".DIRECTORY_SEPARATOR.'config.php');
-require_once((str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT'])).'/'."Vvsion/".'config.php');
+require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."Vvision".DIRECTORY_SEPARATOR.'config.php');
+
 /*
 //Inserindo novo scanner
 $scanner = new Scanner();
