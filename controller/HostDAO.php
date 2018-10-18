@@ -1,5 +1,5 @@
 <?php
-
+echo source;
 require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."Vvision".DIRECTORY_SEPARATOR.'config.php');
 
 class HostDAO {
@@ -33,6 +33,8 @@ class HostDAO {
                     ":INFO"=>$host->getInfo(),
                 )); 
             }
+        }else{
+        //Criar log de erro.
         }
     }
     public static function delete(Host $host) {

@@ -6,8 +6,15 @@ class ScannerDAO{
     //Retorna lista de todos os scanner cadastrados no banco.
     public static function listScanners():array {
         $sql = new Sql();
+        $arrayScanners = array();
         $result = $sql->select("select * from scanner");
-        return $result;
+        if(isset($result)){
+            foreach ( $result as $row) {
+                $scanner = new Scanner($row['username'],$row['password'],$row['host'],$row['port'],$row['id']);
+                array_push($arrayScanners, $scanner);
+            }
+        }
+        return $arrayScanners;
     }
     //Insere um novo scanner no banco de dados
     public static function insertScanner($scanner) {

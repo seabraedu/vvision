@@ -15,6 +15,14 @@ $result = ScannerDAO::listScanners();
 */
 //Final da inserção
 
+
+//Listando todos os scanners cadastrados
+foreach (ScannerDAO::listScanners() as $scanner) {
+    echo $scanner->getHost();
+}
+
+
+
 //Atualizando um scanner
 /*
 $scanner = ScannerDAO::loadScannerById(1);
@@ -83,12 +91,12 @@ foreach ($scans as $scan) {
 */
 
 //Listando Hosts de um Scan e inserindo no banco de dados
-
+/*
  $scanner = ScannerDAO::loadScannerById(1);
  $token = new Token();
  $scan = ScanDAO::loadScanById(40);
 var_dump(ScanDAO::listScans());
- 
+ */
 
 //Inserindo todos os hosts de todos os Scans -- tarefa demorada 50 segundos.
 /*
@@ -120,8 +128,8 @@ var_dump(ScanDAO::listScans());
      }
  }
 */
-/*
 
+/*
  $scanner = ScannerDAO::loadScannerById(1);
  $token = new Token();
 
@@ -134,7 +142,7 @@ $pluginInfo=(Integration::getScanVulnerabitiesPluginOutput($token->getToken($sca
 
  ?>
 
-
+<!--  
 <html>
 
 
@@ -145,7 +153,9 @@ $pluginInfo=(Integration::getScanVulnerabitiesPluginOutput($token->getToken($sca
 </body>
 </html>
 <script>
-var pluginInfo= <?php json_encode($pluginInfo);?>
+var pluginInfo= ?php json_encode($pluginInfo);?>
 //var obj = (pluginInfo); 
 document.getElementById("demo").innerHTML = pluginInfo.outputs; 
 </script>
+
+-->
