@@ -1,7 +1,5 @@
 <?php 
 require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."Vvision".DIRECTORY_SEPARATOR.'config.php');
-$scanners = ScannerDAO::listScanners();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -86,10 +84,10 @@ $scanners = ScannerDAO::listScanners();
                                 <i class="fas fa-chart-bar"></i>Charts</a>
                         </li>
                         <li>
-                            <a href="table.html">
-                                <i class="fas fa-table"></i>Tables</a>
+                            <a href="folders_.php">
+                                <i class="far fa-folder"></i>Folders</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="scanners.php">
                                 <i class="fas fa-terminal"></i>Scanners</a>
                         </li>
@@ -194,10 +192,10 @@ $scanners = ScannerDAO::listScanners();
                                 <i class="fas fa-chart-bar"></i>Charts</a>
                         </li>
                         <li>
-                            <a href="table.html">
-                                <i class="fas fa-table"></i>Tables</a>
+                            <a href="folders_.php">
+                                <i class="far fa-folder"></i>Folders</a>
                         </li>
-                        <li class="active">
+                        <li>
                             <a href="scanners.php">
                                 <i class="fas fa-terminal"></i>Scanners</a>
                         </li>

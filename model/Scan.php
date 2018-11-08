@@ -8,7 +8,13 @@ class Scan {
     private $status;
     private $owner;
     private $history_of;
+    private $scanner_id;
  
+
+
+
+    
+
 
 
     /*------------ Getters ------------*/
@@ -28,6 +34,8 @@ class Scan {
         return $this->owner;}
     public function getHistory_of(){
         return $this->history_of;}
+    public function getScanner_id(){
+        return $this->scanner_id;}
     /*------------ Setters ------------*/
     public function setId($id){
         $this->id = $id;}
@@ -45,6 +53,8 @@ class Scan {
         $this->owner = $owner;}
     public function setHistory_of($history_of){
         $this->history_of = $history_of;}
+    public function setScanner_id($scanner_id){
+        $this->scanner_id = $scanner_id;}
 
 
     public function __toString() {

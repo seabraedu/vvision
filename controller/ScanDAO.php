@@ -18,6 +18,7 @@ class ScanDAO {
             $scan->setStatus($row['status']);
             $scan->setOwner($row['owner']);
             $scan->setHistory_of($row['history_of']);
+            $scan->setScanner_id($row['scanner_id']);
             array_push($return_array, $scan);
         }
         return $return_array;
@@ -25,7 +26,7 @@ class ScanDAO {
     //Insere um novo scan no banco de dados
     public static function insertScan($scan) {
         $sql = new Sql(); 
-        $sql->query("insert into scans (id,name,folder_id,creation_date,last_modification_date,status,owner,history_of) values ( :ID , :NAME , :FOLDER_ID , :CREATION_DATE , :LAST_MODIFICATION_DATE , :STATUS, :OWNER,:HISTORY )",
+        $sql->query("insert into scans (id,name,folder_id,creation_date,last_modification_date,status,owner,history_of,scanner_id) values ( :ID , :NAME , :FOLDER_ID , :CREATION_DATE , :LAST_MODIFICATION_DATE , :STATUS, :OWNER,:HISTORY,:SCANNER_ID )",
             array(
                 ":ID"=>$scan->getId(),
                 ":NAME"=>$scan->getName(),
@@ -34,7 +35,8 @@ class ScanDAO {
                 ":LAST_MODIFICATION_DATE"=>$scan->getLast_modification_date(),
                 ":STATUS"=>$scan->getStatus(),
                 ":OWNER"=>$scan->getOwner(),
-                ":HISTORY"=>$scan->getHistory_of()
+                ":HISTORY"=>$scan->getHistory_of(),
+                ":SCANNER_ID"=>$scan->getScanner_id()
         ));
     }
     //Retorna um scan a partir de um ID
@@ -52,6 +54,7 @@ class ScanDAO {
             $scan->setStatus($row['status']);
             $scan->setOwner($row['owner']);
             $scan->setHistory_of($row['history_of']);
+            $scan->setScanner_id($row['scanner_id']);
             return $scan;
         }else echo "Não foi encontrado scanner com o ID fornecido";
         
@@ -64,7 +67,7 @@ class ScanDAO {
     //Atualiza os dados de um scan no banco de dados.
     public static function updateScanFromId($scan) {
         $sql = new Sql();
-        $sql->query("update scans set  name = :NAME, folder_id = :FOLDER_ID , creation_date = :CREATION_DATE , last_modification_date = :LAST_MODIFICATION_DATE , status = :STATUS, owner = :OWNER, history_of = :HISTORY where id = :ID )",
+        $sql->query("update scans set  name = :NAME, folder_id = :FOLDER_ID , creation_date = :CREATION_DATE , last_modification_date = :LAST_MODIFICATION_DATE , status = :STATUS, owner = :OWNER, history_of = :HISTORY, scanner_id = :SCANNER_ID where id = :ID )",
             array(
                 ":ID"=>$scan->getId(),
                 ":NAME"=>$scan->getName(),
@@ -73,14 +76,15 @@ class ScanDAO {
                 ":LAST_MODIFICATION_DATE"=>$scan->getLast_modification_date(),
                 ":STATUS"=>$scan->getStatus(),
                 ":OWNER"=>$scan->getOwner(),
-                ":HISTORY"=>$scan->getHistory_of()
+                ":HISTORY"=>$scan->getHistory_of(),
+                ":SCANNER_ID"=>$scan->getScanner_id()
             ));
     }
     public static function insertScanFromArray($scanArray) {
         if (count($scanArray)>0) {
             foreach ($scanArray as $scan) {
                 $sql = new Sql();
-                $sql->query("insert into scans (id,name,folder_id,creation_date,last_modification_date,status,owner,history_of) values ( :ID , :NAME , :FOLDER_ID , :CREATION_DATE , :LAST_MODIFICATION_DATE , :STATUS, :OWNER, :HISTORY_OF )",
+                $sql->query("insert into scans (id,name,folder_id,creation_date,last_modification_date,status,owner,history_of,scanner_id) values ( :ID , :NAME , :FOLDER_ID , :CREATION_DATE , :LAST_MODIFICATION_DATE , :STATUS, :OWNER, :HISTORY_OF,:SCANNER_ID )",
                     array(
                         ":ID"=>$scan->getId(),
                         ":NAME"=>$scan->getName(),
@@ -89,7 +93,8 @@ class ScanDAO {
                         ":LAST_MODIFICATION_DATE"=>$scan->getLast_modification_date(),
                         ":STATUS"=>$scan->getStatus(),
                         ":OWNER"=>$scan->getOwner(),
-                        ":HISTORY_OF"=>$scan->getHistory_of()
+                        ":HISTORY_OF"=>$scan->getHistory_of(),
+                        ":SCANNER_ID"=>$scan->getScanner_id()
                     ));
             }
         }

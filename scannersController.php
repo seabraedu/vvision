@@ -2,35 +2,27 @@
 
 switch ($_GET['action']){
     case 'update':
-        $scanner= new Scanner();        
-        $scanner->setId($_POST['scanner-id']);
+        $scanner=ScannerDAO::loadScannerById($_POST['scanner-id']);
         $scanner->setHost($_POST['hostname']);
         $scanner->setPort($_POST['port']);
-        $scanner->setUsername($_POST['username']);
-        //isso deve serCriptografado
+        $scanner->setUsername($_POST['username']);    
+        //isso deve serCriptografado, porém deve ser capaz de decriptografar pois para geração do token se faz necessario a senha em claro.
         $scanner->setPassword($_POST['password']);
         ScannerDAO::updateScanner($scanner);
-        redirect("scanners.php");
         break;
     case 'delete':
         $scanner= ScannerDAO::loadScannerById($_POST['scanner-id']);
         ScannerDAO::deleteScanner($scanner);
-        redirect("scanners.php");
         break;
     case 'insert':
         $scanner= new Scanner();
-        $scanner->setHost($_POST['hostname']);
-        $scanner->setPort($_POST['port']);
-        $scanner->setUsername($_POST['username']);
-        //isso deve serCriptografado
-        $scanner->setPassword($_POST['password']);
-        ScannerDAO::insertScanner($scanner);
-        redirect("scanners.php");
+        if($scanner->setHost($_POST['hostname']) && $scanner->setPort($_POST['port']) && $scanner->setUsername($_POST['username']) && $scanner->setPassword($_POST['password'])){
+            ScannerDAO::insertScanner($scanner);
+        }
         break;
 }
-
-function redirect($url, $statusCode = 303)
-{
+redirect("scanners.php");
+function redirect($url, $statusCode = 303){
     header('Location: ' . $url, true, $statusCode);
     die();
 }

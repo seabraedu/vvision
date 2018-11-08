@@ -3,10 +3,16 @@ require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."Vvision".DIRECTORY_S
 
 class FolderDAO{
     //lista todas as pastas cadastradas no banco de dados.
-    public static function listFolders($scanner){
+    public static function listAllFoldersInDB(){
         $sql = new Sql();
-        $result = $sql->select("select * from folders where scanner_id = :SCANNER_ID",array(":SCANNER_ID"=>$scanner->getId()));
-        echo $result;
+        $sqlResult = $sql->select("select f.id as id,f.scanner_id as scanner_id, f.name as name, f.unread_count  from folders f inner join scanner s on f.scanner_id = s.id ;");
+        $returnArrray = array();
+        
+        foreach ($sqlResult as $row){
+            $folder = new Folder((int)$row['id'], $row['scanner_id'],$row['name'],$row['unread_count']);
+            array_push($returnArrray, $folder);
+        }
+        return $returnArrray;
     }
     //carrega uma folder a partir de um ID
     public static function getFolderById($scanner,$id):Folder{

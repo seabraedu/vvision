@@ -15,12 +15,12 @@ $result = ScannerDAO::listScanners();
 */
 //Final da inserção
 
-
+/*
 //Listando todos os scanners cadastrados
 foreach (ScannerDAO::listScanners() as $scanner) {
-    echo $scanner->getHost();
+    echo $scanner->getHost()."<br>".$scanner->getId();
 }
-
+*/
 
 
 //Atualizando um scanner
@@ -33,11 +33,15 @@ echo $teste->getPassword();
 
 //Listando todas as folders de um scanner
 /*
-$scanner = ScannerDAO::loadScannerById(1);
+$scanner = ScannerDAO::loadScannerById(12747);
 $token = new Token();
 var_dump(Integration::listFolders($token->getToken($scanner), $scanner));
 var_dump(FolderDAO::refreshFolderFromScanner($token->getToken($scanner),$scanner));
+foreach (FolderDAO::listAllFoldersInDB() as $folders){
+    printf ("<br>ID: ".$folders->getId()." <b>FolderName: ". $folders->getName()."</b>  ScannerId:".$folders->getScanner_id());
+}
 */
+
 //Listando a Sessão e pastas com mesmo token
 /*
 $scanner = ScannerDAO::loadScannerById(1);
@@ -56,7 +60,7 @@ var_dump( $token->getToken($scanner));
 
 //Listando todos os Scans de uma determinada folder
 /*
-$scanner = ScannerDAO::loadScannerById(1);
+$scanner = ScannerDAO::loadScannerById(12747);
 $token = new Token();
 //$folder = FolderDAO::getFolderById($scanner, 3);
 $folders = Integration::listFolders($token->getToken($scanner), $scanner);
@@ -74,13 +78,15 @@ foreach ($folders['folders'] as $folderArray) {
         $scan->setOwner($scanRead['owner']);
         //$scan->setHost_ids($scanRead['host_ids']);
         $scan->setHistory_of($scanRead['history_of']);
-        ScanDAO::insertScan($scan); 
+        $scan->setScanner_id($folder->getScanner_id());
+        ScanDAO::insertScan($scan);
+        var_dump($scan);
     }
 };
 */
 //Inserindo todos os Scans_history de todos os Scans cadastrados
-/*
-$scanner = ScannerDAO::loadScannerById(1);
+
+$scanner = ScannerDAO::loadScannerById(12747);
 $token = new Token();
 $scans = ScanDAO::listScans();
 //$scans = ScanDAO::loadScanById(39);
@@ -88,7 +94,7 @@ foreach ($scans as $scan) {
     $scanArray = Integration::getScanHistory($token->getToken($scanner), $scanner,$scan);
     ScanDAO::insertScanFromArray($scanArray);  
 }
-*/
+
 
 //Listando Hosts de um Scan e inserindo no banco de dados
 /*
@@ -142,20 +148,3 @@ $pluginInfo=(Integration::getScanVulnerabitiesPluginOutput($token->getToken($sca
 
  ?>
 
-<!--  
-<html>
-
-
-<body id="demo">
-
-
-
-</body>
-</html>
-<script>
-var pluginInfo= ?php json_encode($pluginInfo);?>
-//var obj = (pluginInfo); 
-document.getElementById("demo").innerHTML = pluginInfo.outputs; 
-</script>
-
--->

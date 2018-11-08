@@ -32,16 +32,28 @@ class Scanner {
     }
 
     public function setUsername($username){
-        $this->username = $username;
+        if($this->validateScannerParameter($username)){
+            $this->username = $username;
+            return true;
+        }return false;
     }
     public function setPassword($password){
-        $this->password = $password;
+        if($this->validateScannerParameter($password)){
+            $this->password = $password;
+            return true;
+        }return false;
     }
     public function setHost($host){
-        $this->host = $host;
+        if($this->validateScannerParameter($host,'/^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|(\w+|\.|\-|\_)*)$/')){
+            $this->host = $host;
+            return true;
+        }return false;
     }
     public function setPort($port){
-        $this->port = $port;
+        if($this->validateScannerParameter($port,'/^((6553[0-5])|(655[0-2][0-9])|(65[0-4][0-9]{2})|(6[0-4][0-9]{3})|([1-5][0-9]{4})|([0-5]{0,5})|([0-9]{1,4}))$/')){
+            $this->port = $port;
+            return true;
+        }return false;
     }
     public function getId(){
         return $this->id;
@@ -50,7 +62,17 @@ class Scanner {
     public function setId($id){
         $this->id = $id;
     }
-
-    
+    //Por default não são aceitos vazio e null
+    private function validateScannerParameter($parameter,$regex="") {
+            if(!isset($parameter) || $parameter == ""){
+                return false;
+            }elseif ($regex!=""){
+                if(preg_match($regex,$parameter)){
+                    return true;
+                }
+            }else{
+                return true;
+            }
+    }
 }
 ?>

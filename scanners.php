@@ -1,4 +1,5 @@
 <?php require_once('header.php');?>
+<?php $scanners = ScannerDAO::listScanners();?>
         <!-- PAGE CONTAINER-->
         <div class="page-container">
         
@@ -88,8 +89,8 @@
 	                                            		<i class="fas fa-edit">
 	                                            		</i>
 	                                            	</button>
-	                                            	<form class="float-right" action="scannersController.php?action=delete" method="post"  id="form<?=$scanner->getId()?>" >
-    	                                            	<button class="icon ml-3 mt-1 align-middle" form="form<?=$scanner->getId()?>" type="submit" value="Submit">
+	                                            	<form class="float-right" action="scannersController.php?action=delete" method="post"  id="deleteForm<?=$scanner->getId()?>" >
+    	                                            	<button class="icon ml-3 mt-1 align-middle" form="deleteForm<?=$scanner->getId()?>" type="submit" value="Submit">
     	                                            		<i class="fas fa-times"></i>
     	                                            	</button>
     	                                            	<input name="scanner-id" hidden="true" id="scanner-id" value="<?=$scanner->getId()?>">
@@ -103,7 +104,7 @@
 	                        <div class="row m-t-25 collapse " id="scanner-details<?=$count?>">
 	                            <div class="col-12 card">
 	                            	<div class="card-body">
-		                            	<form class="form" action="scannersController.php?action=update" method="post"  id="form<?=$scanner->getId()?>" >
+		                            	<form class="form" action="scannersController.php?action=update" method="post"  id="updateForm<?=$scanner->getId()?>" >
 								            <!-- TEXT FIELD GROUPS -->
 								            <div class="row">
 									            <div class="form-group col-md-9 col-lg-6 col-sm-12">
@@ -131,7 +132,7 @@
 								            
 								            <div class="row">
     								            <div class="form-group col-md-2 col-lg-2 col-sm-12">
-    									            <button class="form-control btn btn-success" form="form<?=$scanner->getId()?>" type="submit" value="Submit" >
+    									            <button class="form-control btn btn-success" form="updateForm<?=$scanner->getId()?>" type="submit" value="Submit" >
     									            	Confirmar! <i class="icon fas fa-check"></i>
     									            </button>
 									            </div>
@@ -147,17 +148,5 @@
             <!-- END MAIN CONTENT-->
             <!-- END PAGE CONTAINER-->
         </div>
+        
 <?php require_once('footer.php');?>
-<script>
-function submitForm(form,hostname){
- var ipformat = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
- if(hostname.value.match(ipformat)){
-	//form.submit;
- 	alert("entrei");
- }
- else{
- 	alert("You have entered an invalid IP address!");
- 	document.form1.text1.focus();return false;
- 	}
-}
-</script>

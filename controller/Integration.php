@@ -45,6 +45,7 @@ class Integration {
             $scan_history->setName($scan->getName());
             $scan_history->setStatus($scan->getStatus());
             $scan_history->setHistory_of($scan->getId());
+            $scan_history->setScanner_id($scanner->getId());
             array_push($return_array_history, $scan_history);
         }
         return $return_array_history;
