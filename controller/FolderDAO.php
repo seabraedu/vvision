@@ -52,4 +52,26 @@ class FolderDAO{
         }
         return $foldersArray;
     }
+    
+    public static function monitoredFolderUpdate($folderId,$scannerId,$value) {
+        $sql = new Sql();
+        $sql->query("update monitoredfolder set monitoring = :BOOLEAN where folder_id = :FOLDER_ID && scanner_id = :SCANNER_ID",
+            array(":BOOLEAN"=>$value,
+                ":FOLDER_ID"=>$folderId,
+                ":SCANNER_ID",$scannerId));
+    }
+    public static function monitoredGetState($folderId,$scannerId):bool {
+        $sql = new Sql();
+        $result=$sql->select("select * from  monitoredfolder where folder_id = :FOLDER_ID && scanner_id = :SCANNER_ID",
+            array(":FOLDER_ID"=>$folderId,
+                ":SCANNER_ID",$scannerId));
+        if(isset($result[0])){
+                $row =$result[0];
+                return (boolean) $row['monitoring'];
+        }else return false;
+    }
+    
+    
+    
+    
 }

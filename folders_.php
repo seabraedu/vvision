@@ -50,15 +50,15 @@
                                             <tr>
                                                 <td class="text-center"><?=$folder->getId()?></td>
                                                 <td class="text-center"><?=$folder->getName()?></td>
-                                                <td class="text-center"><?=$folder->getScanner_Id()?></td>
-                                                <td class="text-center"><?php $scanner = ScannerDAO::loadScannerById($folder->getScanner_Id());
+                                                <td class="text-center"><?=$folder->getScanner_id()?></td>
+                                                <td class="text-center"><?php $scanner = ScannerDAO::loadScannerById($folder->getScanner_id());
                                                       echo  $scanner->getHost();?></td>
                                                 <td class="text-right"><?=$folder->getUnread_count()?></td>
                                                 <td class="text-right"> 
-	                                                <form id="monitorarFolder<?=$folder->getScanner_Id()?>,<?=$folder->getId()?>" action="controllerFolder.php/?monitoringFolders=update" method="post" >
-                                                    	<input  type="checkbox" class="form-check-input mr-4" name="monitorarFolder<?=$folder->getScanner_Id()?>,<?=$folder->getId()?>" id="monitorarFolder<?=$folder->getScanner_Id()?>,<?=$folder->getId()?>" value="yes"> 
-                                                    	<input id='monitorarFolder<?=$folder->getScanner_Id()?>,<?=$folder->getId()?>' type='hidden' value='No' name='monitorarFolder<?=$folder->getScanner_Id()?>,<?=$folder->getId()?>'>
-                                                    	<button class="btn btn-info ml-5"  type="submit" form="monitorarFolder<?=$folder->getScanner_Id()?>,<?=$folder->getId()?>" > Salvar</button>
+	                                                <form id="monitorarFolder<?=$folder->getScanner_id()?>,<?=$folder->getId()?>" action="folderController.php?action=update" method="post" >
+                                                    	<input  type="checkbox" class="form-check-input mr-4" name="monitorarFolder<?=$folder->getScanner_id()?>,<?=$folder->getId()?>" id="monitorarFolder<?=$folder->getScanner_id()?>,<?=$folder->getId()?>" value="yes" > 
+                                                    	<input id='monitorarFolder<?=$folder->getScanner_id()?>,<?=$folder->getId()?>' type='hidden' value='No' name='monitorarFolder<?=$folder->getScanner_id()?>,<?=$folder->getId()?>'>
+                                                    	<button class="btn btn-info ml-5"  type="submit" form="monitorarFolder<?=$folder->getScanner_id()?>,<?=$folder->getId()?>" > Salvar ! <?php $teste=FolderDAO::monitoredGetState($folder->getId(), $folder->getScanner_id()); var_dump($teste)?></button>
                                                     </form>
                                               	</td>                                            
                                             </tr> 
