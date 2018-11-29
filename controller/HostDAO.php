@@ -64,7 +64,26 @@ class HostDAO {
     }
     public static function listHosts(Scan $scan):array {
         $sql = new Sql();
-        $result = $sql->select("select * from hosts");
+        $result = $sql->select("select * from hosts ");
+        $return_array=array();
+        foreach ($result as $row){
+            $host = new Host();
+            $host->setId($row['id']);
+            $host->setHostname($row['hostname']);
+            $host->setScan_id($scan->getId());
+            $host->setSeverity($row['severity']);
+            $host->setCritical($row['critical']);
+            $host->setHigh($row['high']);
+            $host->setMedium($row['medium']);
+            $host->setLow($row['low']);
+            $host->setInfo($row['info']);
+            array_push($return_array, $host);
+        }
+        return $return_array;
+    }
+    public static function listHostsFromScan(Scan $scan):array {
+        $sql = new Sql();
+        $result = $sql->select("select * from hosts where scan_id = :SCAN_ID",array(":SCAN_ID"=>$scan->getId()));
         $return_array=array();
         foreach ($result as $row){
             $host = new Host();

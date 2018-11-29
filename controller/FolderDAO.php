@@ -14,6 +14,18 @@ class FolderDAO{
         }
         return $returnArrray;
     }
+    //retorna apenas as pastas que estão com a flag de monitoração yes
+    public static function getMonitoredFolders(){
+        $sql = new Sql();
+        $sqlResult = $sql->select("select f.id as id,f.scanner_id as scanner_id, f.name as name, f.unread_count  from folders f inner join scanner s on f.scanner_id = s.id where f.monitored = 'yes';");
+        $returnArrray = array();
+        
+        foreach ($sqlResult as $row){
+            $folder = new Folder((int)$row['id'], $row['scanner_id'],$row['name'],$row['unread_count']);
+            array_push($returnArrray, $folder);
+        }
+        return $returnArrray;
+    }
     //carrega uma folder a partir de um ID
     public static function getFolderById($scanner,$id):Folder{
         $sql = new Sql();
@@ -55,20 +67,21 @@ class FolderDAO{
     
     public static function monitoredFolderUpdate($folderId,$scannerId,$value) {
         $sql = new Sql();
-        $sql->query("update monitoredfolder set monitoring = :BOOLEAN where folder_id = :FOLDER_ID && scanner_id = :SCANNER_ID",
-            array(":BOOLEAN"=>$value,
+        $sql->query("update folders set monitored = :VALUE where id = :FOLDER_ID and scanner_id = :SCANNER_ID",
+            array(":VALUE"=>$value,
                 ":FOLDER_ID"=>$folderId,
-                ":SCANNER_ID",$scannerId));
+                ":SCANNER_ID"=>$scannerId));
     }
-    public static function monitoredGetState($folderId,$scannerId):bool {
+    public static function monitoredGetState($folderId, $scannerId) {
+        $scannerId = (int)$scannerId;
         $sql = new Sql();
-        $result=$sql->select("select * from  monitoredfolder where folder_id = :FOLDER_ID && scanner_id = :SCANNER_ID",
-            array(":FOLDER_ID"=>$folderId,
-                ":SCANNER_ID",$scannerId));
+        $result=$sql->select("select * from  folders where id = :ID and scanner_id = :SCANNER_ID",array(":ID"=>$folderId, ":SCANNER_ID"=>$scannerId));
         if(isset($result[0])){
-                $row =$result[0];
-                return (boolean) $row['monitoring'];
-        }else return false;
+            $row =$result[0];
+            return $row['monitored'];
+        }
+           
+        
     }
     
     

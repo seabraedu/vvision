@@ -85,7 +85,7 @@ foreach ($folders['folders'] as $folderArray) {
 };
 */
 //Inserindo todos os Scans_history de todos os Scans cadastrados
-
+/*
 $scanner = ScannerDAO::loadScannerById(12747);
 $token = new Token();
 $scans = ScanDAO::listScans();
@@ -94,7 +94,7 @@ foreach ($scans as $scan) {
     $scanArray = Integration::getScanHistory($token->getToken($scanner), $scanner,$scan);
     ScanDAO::insertScanFromArray($scanArray);  
 }
-
+*/
 
 //Listando Hosts de um Scan e inserindo no banco de dados
 /*
@@ -105,8 +105,8 @@ var_dump(ScanDAO::listScans());
  */
 
 //Inserindo todos os hosts de todos os Scans -- tarefa demorada 50 segundos.
-/*
- $scanner = ScannerDAO::loadScannerById(1);
+
+ $scanner = ScannerDAO::loadScannerById(12747);
  $token = new Token();
  $scans = ScanDAO::listScans();
  //$scans = ScanDAO::loadScanById(39);
@@ -114,7 +114,7 @@ var_dump(ScanDAO::listScans());
     $hostArray=Integration::getScanHosts($token->getToken($scanner), $scanner, $scan);
     HostDAO::insertArray($hostArray);
  }
-*/
+
  
   
 //Listando todas vulnerabilidades de todos os host e todos scans e inserinfo no bando de dados
