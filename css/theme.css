@@ -14562,6 +14562,9 @@ section {
 .bg-white {
     background: #fff;
 }
+.bg-orange {
+    background: #c63f17;
+}
 
 .bg-overlay {
     position: absolute;

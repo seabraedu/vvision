@@ -26,6 +26,7 @@
                             <div class="col-md-12">
                                 <div class="overview-wrap">
                                     <h2 class="title-1">Scans</h2>
+                                    <a href="scanController.php?action=sync_scans">Sync <i class="fas fa-sync"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -38,17 +39,17 @@
                                             <tr>
                                                 <th class="text-center col-1" >ID</th>
                                                 <th class="text-center">Nome</th>
-                                                <th class="text-center ">Critical</th>
-                                                <th class="text-center col-1" >High</th>
-                                                <th class="text-center col-1 ">Medium</th>
-                                                <th class="text-center col-1 ">Low</th>
+                                                <th class="text-center ">Crítica</th>
+                                                <th class="text-center col-1" >Alta</th>
+                                                <th class="text-center col-1 ">Média</th>
+                                                <th class="text-center col-1 ">Baixa</th>
                                                 <th class="text-center col-1 ">Info</th>
                                                 <th class="text-center col-2 px-0 ">modificado</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php foreach ($scansArray as $scan) {?>
-                                                <tr onclick="window.location='scanController.php?action=detail&scan_id=<?=$scan['id']?>'">
+                                                <tr onclick="window.location='scanController.php?action=detail&scan_id=<?=$scan['id']?>&scanner_id=<?=$scan['scanner_id']?>&scan_name=<?=$scan['name']?>'">
                                                     <td class="text-center col-1"><?=$scan['id']?></td>
                                                     <td class="text-center "><?=$scan['name']?></td>
                                                     <td class="text-center text-light col-1 bg-danger "><?=$scan['critical']?></td>

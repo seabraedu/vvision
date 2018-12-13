@@ -32,15 +32,16 @@ echo $teste->getPassword();
 */
 
 //Listando todas as folders de um scanner
-/*
-$scanner = ScannerDAO::loadScannerById(12747);
+
+$scanner = ScannerDAO::loadScannerById(41521);
 $token = new Token();
-var_dump(Integration::listFolders($token->getToken($scanner), $scanner));
-var_dump(FolderDAO::refreshFolderFromScanner($token->getToken($scanner),$scanner));
-foreach (FolderDAO::listAllFoldersInDB() as $folders){
-    printf ("<br>ID: ".$folders->getId()." <b>FolderName: ". $folders->getName()."</b>  ScannerId:".$folders->getScanner_id());
-}
-*/
+var_dump($token->getToken($scanner));
+//var_dump(Integration::listFolders($token->getToken($scanner), $scanner));
+//var_dump(FolderDAO::refreshFolderFromScanner($token->getToken($scanner),$scanner));
+//foreach (FolderDAO::listAllFoldersInDB() as $folders){
+//    printf ("<br>ID: ".$folders->getId()." <b>FolderName: ". $folders->getName()."</b>  ScannerId:".$folders->getScanner_id());
+//}
+
 
 //Listando a Sessão e pastas com mesmo token
 /*
@@ -105,7 +106,7 @@ var_dump(ScanDAO::listScans());
  */
 
 //Inserindo todos os hosts de todos os Scans -- tarefa demorada 50 segundos.
-
+/*
  $scanner = ScannerDAO::loadScannerById(12747);
  $token = new Token();
  $scans = ScanDAO::listScans();
@@ -115,7 +116,7 @@ var_dump(ScanDAO::listScans());
     HostDAO::insertArray($hostArray);
  }
 
- 
+ */
   
 //Listando todas vulnerabilidades de todos os host e todos scans e inserinfo no bando de dados
 /*

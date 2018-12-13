@@ -100,6 +100,7 @@ class Integration {
                     $vuln->setHost_id($nVuln['host_id']);
                     $vuln->setScan_id($scan->getId());
                     $vuln->setId($nVuln['vuln_index']);
+                    $vuln->setScanner_id($scanner->getId());
                     array_push($returnVulnHostarray, $vuln);
                 }
                 return $returnVulnHostarray;
@@ -142,7 +143,7 @@ class Integration {
         //Connection Control
         curl_setopt($ch, CURLOPT_FAILONERROR, 1);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);// allow redirects
-        curl_setopt($ch, CURLOPT_TIMEOUT, 2); // times out after 8s
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5); // times out after 8s
         //RESQUEST HEADERS - for Json
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json',
             'Accept: application/json, text/javascript, */*;',
@@ -169,7 +170,7 @@ class Integration {
         //Connection Control
         curl_setopt($ch, CURLOPT_FAILONERROR, 1);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);// permite o direcionamento
-        curl_setopt($ch, CURLOPT_TIMEOUT, 2); // configurando timeout para o resquest - 2s
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5); // configurando timeout para o resquest - 2s
         //RESQUEST HEADERS - for Json - com Token e sem Token(para o caso de uma nova sessão)
         if (!$token===""){
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json',

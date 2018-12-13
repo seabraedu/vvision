@@ -17,7 +17,7 @@ class FolderDAO{
     //retorna apenas as pastas que estão com a flag de monitoração yes
     public static function getMonitoredFolders(){
         $sql = new Sql();
-        $sqlResult = $sql->select("select f.id as id,f.scanner_id as scanner_id, f.name as name, f.unread_count  from folders f inner join scanner s on f.scanner_id = s.id where f.monitored = 'yes';");
+        $sqlResult = $sql->select("select f.id as id,f.scanner_id as scanner_id, f.name as name, f.unread_count  from folders f inner join scanner s on f.scanner_id = s.id where f.monitored = 'yes'");
         $returnArrray = array();
         
         foreach ($sqlResult as $row){
