@@ -51,13 +51,17 @@
 									            
 								            </div>
 								            <div class="row">
-									            <div class="form-group col-md-6 col-lg-3 col-sm-12">
+									            <div class="form-group col-md-4 col-lg-3 col-sm-12">
 									                <label for="Username">Username</label>
 									                <input class="form-control " type="text" name="username" id="username" placeholder="Username">
 									            </div>
-									            <div class="form-group col-md-6 col-lg-3 col-sm-12">
+									            <div class="form-group col-md-4 col-lg-3 col-sm-12">
 									                <label for="password">Password</label>
 									                <input  class="form-control mb-0" type="password" name="password" id="password" placeholder="Password">
+									            </div>
+									            <div class="form-group col-md-4 col-lg-3 col-sm-12">
+									                <label for="nome">Nome Scanner</label>
+									                <input  class="form-control mb-0" type="text" name="nome" id="nome" placeholder="Nome Scanner">
 									            </div>
 								            </div>
 								            <div class="row">
@@ -120,13 +124,17 @@
 									            
 								            </div>
 								            <div class="row">
-									            <div class="form-group col-md-6 col-lg-3 col-sm-12">
+									            <div class="form-group col-md-4 col-lg-3 col-sm-12">
 									                <label for="Username">Username</label>
 									                <input class="form-control " type="text" name="username" placeholder="<?=$scanner->getUsername()?>">
 									            </div>
-									            <div class="form-group col-md-6 col-lg-3 col-sm-12">
+									            <div class="form-group col-md-4 col-lg-3 col-sm-12">
 									                <label for="password">Password</label>
 									                <input  class="form-control mb-0" type="password" name="password" placeholder="Password">
+									            </div>
+									            <div class="form-group col-md-4 col-lg-3 col-sm-12">
+									                <label for="nome">Nome Scanner</label>
+									                <input  class="form-control mb-0" type="text" name="nome" id="nome" placeholder="<?=$scanner->getNome()?>">
 									            </div>
 								            </div>
 								            

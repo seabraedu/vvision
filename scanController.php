@@ -6,18 +6,31 @@ switch ($_GET['action']){
         $token = new Token();
         $scan = ScanDAO::loadScanById((int)$_GET['scan_id'],$_GET['scanner_id']);
         $scan_history_array = Integration::getScanHistory($token->getToken($scanner), $scanner, $scan);
-        
+        $cont=0;
         foreach ($scan_history_array as $scan_his){
-            ScanDAO::insertScan($scan_his);
-            $hostArray=Integration::getScanHosts($token->getToken($scanner), $scanner, $scan_his);
-            HostDAO::insertArray($hostArray);
-            $hosts = HostDAO::listHostsFromScan($scan_his);
-            foreach ($hosts as $host) {
-                $vulns= Integration::getScanVulnerabitiesFromHost($token->getToken($scanner), $scanner, $scan, $host);
-                foreach ($vulns as $vulnerability) {
-                    VulnerabilityDAO::insertVulnerability($vulnerability);
-                }
+            //echo "testing = ".$scan_his->getId()."<br>";
+            //if($scan->getLast_modification_date()<$scan_his->getLast_modification_date()){
+            //    VulnerabilityDAO::deleteVuln4Update($scan);   
+            //}
+            
+            if(ScanDAO::checkScanHistory($scan_his->getId(), $scanner->getId())){
+                //echo "getting scan_id = ".$scan_his->getId();
+                ScanDAO::insertScan($scan_his);
+                $hostArray=Integration::getScanHosts($token->getToken($scanner), $scanner, $scan_his);
+                HostDAO::insertArray($hostArray);
+                $hosts = HostDAO::listHostsFromScan($scan_his);
+                foreach ($hosts as $host) {
+                        $vulns= Integration::getScanVulnerabitiesFromHost($token->getToken($scanner), $scanner, $scan, $host);
+                        foreach ($vulns as $vulnerability) {           
+                            VulnerabilityDAO::insertVulnerability($vulnerability);
+                        }
+                    
+               }
+               if ($cont==1){
+                    break;
+               }else $cont+=1;
             }
+            
         }
         break;
     
@@ -47,6 +60,9 @@ switch ($_GET['action']){
                 $scan->setHistory_of($scanRead['history_of']);
                 $scan->setScanner_id($folder->getScanner_id());
                 ScanDAO::insertScan($scan);
+                $hostArray=Integration::getScanHosts($token->getToken($scanner), $scanner, $scan);
+                HostDAO::insertArray($hostArray);
+                
                 
             }
         }

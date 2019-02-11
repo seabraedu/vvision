@@ -6,17 +6,33 @@ class Scanner {
     private $host;
     private $port;
     private $id;
+    private $nome;
     
     //constructor
-    public function __construct($username="",$password="",$host="",$port="",$id=""){
+    public function __construct($username="",$password="",$host="",$port="",$id="",$nome=""){
         $this->username=$username;
         $this->password=$password;
         $this->port=$port;
         $this->host=$host;
         $this->id=$id;
+        $this->nome=$nome;
+        
     }
     
     
+
+    public function getNome()
+    {
+        return $this->nome;
+    }
+
+
+    public function setNome($nome)
+    {
+        $this->nome = $nome;
+        return  true;
+    }
+
     //Getters and Setters
     public function getUsername(){
         return $this->username;

@@ -80,7 +80,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."Vvision".DIRECTORY_S
                             </ul>
                         </li>
                         <li>
-                            <a href="chart.html">
+                            <a href="summaryScanners.php">
                                 <i class="fas fa-chart-bar"></i>Charts</a>
                         </li>
                         <li>
@@ -96,8 +96,12 @@ require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."Vvision".DIRECTORY_S
                                 <i class="fab fa-sistrix"></i>Scans</a>
                         </li>
                         <li>
-                            <a href="map.html">
-                                <i class="fas fa-map-marker-alt"></i>Maps</a>
+                            <a href="vulnerability.php">
+                                <i class="vulnerability"></i>Vulnerability</a>
+                        </li>
+                        <li>
+                            <a href="hosts.php">
+                                <i class="fas fa-desktop"></i>Hosts</a>
                         </li>
                         <li class="has-sub">
                             <a class="js-arrow" href="#">
@@ -188,7 +192,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."Vvision".DIRECTORY_S
                             </ul>
                         </li>
                         <li>
-                            <a href="chart.html">
+                            <a href="summaryScanners.php">
                                 <i class="fas fa-chart-bar"></i>Charts</a>
                         </li>
                     	<li>
@@ -203,6 +207,15 @@ require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."Vvision".DIRECTORY_S
                         <li>
                             <a href="scans.php">
                                 <i class="fab fa-sistrix"></i>Scans</a>
+                        </li>
+                        <li>
+                            <a href="vulnerability.php">
+                                <i class="vulnerability"></i>Vulnerability</a>
+                        </li>
+                        
+                        <li>
+                            <a href="hosts.php">
+                                <i class="fas fa-desktop"></i>Hosts</a>
                         </li>
                     </ul>
                 </nav>

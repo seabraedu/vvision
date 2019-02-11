@@ -33,9 +33,9 @@ echo $teste->getPassword();
 
 //Listando todas as folders de um scanner
 
-$scanner = ScannerDAO::loadScannerById(41521);
+$scanner = ScannerDAO::loadScannerById(12747);
 $token = new Token();
-var_dump($token->getToken($scanner));
+//var_dump($token->getToken($scanner));
 //var_dump(Integration::listFolders($token->getToken($scanner), $scanner));
 //var_dump(FolderDAO::refreshFolderFromScanner($token->getToken($scanner),$scanner));
 //foreach (FolderDAO::listAllFoldersInDB() as $folders){
@@ -146,6 +146,42 @@ var_dump(ScanDAO::listScans());
  $vuln->setPlugin_id(102519);
 $pluginInfo=(Integration::getScanVulnerabitiesPluginOutput($token->getToken($scanner), $scanner, $scans, $host, $vuln));   
 */
+
+$result =HostDAO::getHostVulnerabilities($_GET['host']);
+    var_dump($result);
+    
+
+    $critica=0;
+    $high=0;
+    $medium=0;
+    $low=0;
+    foreach ($result as $line ) {
+        
+        switch ($line['severity']){
+            case '4':
+                $critica+=1;
+                break;
+            case '3':
+                $high+=1;
+                break;
+            case '2':
+                $medium+=1;
+                break;
+            case '1':
+                $low+=1;
+                break;
+        }
+    }
+    echo "critica: ".$critica."high: ".$high."medium: ".$medium."low: ".$low;
+foreach ($result as $arrayHosts) {
+    echo "<BR>".$arrayHosts['hostname']." ---> Horário de verificação: ".$arrayHosts['last_modification_date']."<BR>";
+    
+}
+$result =HostDAO::getHostHistory($_GET['host']);
+foreach ($result as $arrayHosts) {
+    echo "<BR>".$arrayHosts['hostname']." ---> Horário de verificação: ".$arrayHosts['last_modification_date']."<BR>";
+    echo "<BR> Critical --->".$arrayHosts['critical']."  high --->".$arrayHosts['high']."  Medium --->".$arrayHosts['medium']."  Low --->".$arrayHosts['low'];
+}
 
  ?>
 

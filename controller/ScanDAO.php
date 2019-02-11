@@ -33,17 +33,27 @@ class ScanDAO {
     //Retorna lista de todos os scan e quantitativo de vulnerabilidades encontradas de seus hosts, por folder monitorada
     public static function listScansHostsMonitored():array {
         $sql = new Sql();
-        $result = $sql->select("select s.scanner_id,s.id,s.name,IFNULL(sum(h.critical),0) as critical,IFNULL(sum(h.medium),0) as medium,IFNULL(sum(h.high),0) as high,IFNULL(sum(h.low),0) as low ,IFNULL(sum(h.info),0) as info,from_unixtime(s.last_modification_date,('%d-%m-%Y %h:%i')) as last_modification_date, s.history_of from hosts h right join scans s on h.scan_id = s.id inner join folders f on f.id = s.folder_id where s.last_modification_date in (select CAST(last_modification_date as UNSIGNED) from scans where history_of is NULL  ) and s.history_of is NULL and f.monitored = 'yes' and s.scanner_id = f.scanner_id group by s.name,s.last_modification_date,s.history_of,s.id");
+        $result = $sql->select("select s.scanner_id,s.id,s.name,IFNULL(sum(h.critical),0) as critical,IFNULL(sum(h.medium),0) as medium,IFNULL(sum(h.high),0) as high,IFNULL(sum(h.low),0) as low ,IFNULL(sum(h.info),0) as info,from_unixtime(s.last_modification_date,('%d-%m-%Y %h:%i')) as last_modification_date, s.history_of from hosts h right join scans s on h.scan_id = s.id inner join folders f on f.id = s.folder_id where s.last_modification_date in (select CAST(last_modification_date as UNSIGNED) from scans where history_of is NULL  ) and s.history_of is  NULL and f.monitored = 'yes' and s.scanner_id = f.scanner_id group by s.name,s.last_modification_date,s.history_of,s.id");
         return $result;
     }
     public static function getScanHistory($id,$scanner_id):array {
         $sql = new Sql();
-        $result = $sql->select("select s.scanner_id,s.id,s.name,IFNULL(sum(h.critical),0) as critical,IFNULL(sum(h.medium),0) as medium,IFNULL(sum(h.high),0) as high,IFNULL(sum(h.low),0) as low ,IFNULL(sum(h.info),0) as info,from_unixtime(s.last_modification_date,('%d/%m/%y')) as last_modification_date, s.history_of from hosts h right join scans s on h.scan_id = s.id inner join folders f on f.id = s.folder_id where s.history_of = :ID  and s.scanner_id = :SCANNER_ID and f.monitored = 'yes' group by s.name,s.last_modification_date,s.history_of,s.id;",
+        $result = $sql->select("select s.scanner_id,s.id,s.name,IFNULL(sum(h.critical),0) as critical,IFNULL(sum(h.medium),0) as medium,IFNULL(sum(h.high),0) as high,IFNULL(sum(h.low),0) as low ,IFNULL(sum(h.info),0) as info,from_unixtime(s.last_modification_date,('%d/%m/%y')) as last_modification_date, s.history_of from hosts h right join scans s on h.scan_id = s.id inner join folders f on f.id = s.folder_id where s.history_of = :ID  and s.scanner_id = :SCANNER_ID and f.monitored = 'yes' and f.scanner_id =s.scanner_id group by s.name,s.last_modification_date,s.history_of,s.id;",
                                array(
                                    ":ID"=>$id,
                                    ":SCANNER_ID"=>$scanner_id
                                ));
         return $result;
+    }
+    
+    public static function checkScanHistory($id,$scanner_id):bool {
+        $sql = new Sql();
+        $result = $sql->select("select count(id) as scan from scans where id = :ID and scanner_id = :SCANNER_ID",array(
+                ":ID"=>$id,
+                ":SCANNER_ID"=>$scanner_id));
+        if (isset($result[0])&&($result[0]['scan']!=0)){
+            return false;
+        }else return true;
     }
     
     

@@ -30,6 +30,8 @@ function checkSeverity($param) {
     }
     }
     $scan_history=ScanDAO::getScanHistory($_GET['scan_id'],$_GET['scanner_id']);
+    
+    $scan_history_name=array("historyBSB","historyRIO","historySPO");
 foreach ($scan_history as $history) {
     array_push($arrayCritica,$history['critical']);
     array_push($arrayAlta,$history['high']);
@@ -70,58 +72,36 @@ foreach ($scan_history as $history) {
                     	<div class="row ">
                             <div class="col-md-12">
                                 <div class="overview-wrap">
-                                    <h2 class="title-1">Scan Detail - <?=$_GET['scan_name']?></h2>
-                                    <a href="scanController.php?action=sync&scan_id=<?=$_GET['scan_id']?>&scanner_id=<?=$_GET['scanner_id']?>&scan_name=<?=$_GET['scan_name']?>">Sync <i class="fas fa-sync"></i></a>
+                                    <h2 class="title-1">Sumário Regionais</h2>
+                                    
                                 </div>
                             </div>
                         </div>
-                        <canvas id="history" width="400" height="100"></canvas>
-                        <?php $vulnsArray = VulnerabilityDAO::getAllVulnerabilitiesFromScan((int)$_GET['scan_id'],(int)$_GET['scanner_id'],$_GET['scan_name']);?>
-                        <div class="row mt-4">
-                            <div class="col-lg-12">
-                                <div class="table-responsive table--no-card m-b-30">
-                                    <table class="table table-borderless table-striped">
-                                        <thead class="thead-dark">
-                                            <tr>
-                                                
-                                                <th class="text-left">Nome</th>
-                                                <th class="text-right col-1 ">Severidade</th>
-
-                                            </tr>
-                                        </thead>
-                                        <?php foreach ($vulnsArray as $scan) {?>
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-left" data-toggle="collapse" data-target="#vulns<?=$cont?>"><?=$scan['name']?></td>
-                                                <td class="text-right col-1  "><h3><span class="<?php $class = checkSeverity($scan['severity']);echo $class['class'];?>"><?php $severity = checkSeverity($scan['severity']);echo $severity['severity'];?></span></h3></td>                                            
-                                            </tr> 
-                                            <tr  class=" collapse" id="vulns<?=$cont?>">
-                                            	<td colspan="2">
-                                                	<?php 
-                                                    	if($scan['severity']==='4'||$scan['severity']==='3'){
-                                                        	$hostsVulnerable=VulnerabilityDAO::getAllHostsVulnerable((int)$_GET['scan_id'], (int)$_GET['scanner_id'], $scan['name']);
-                                                        	echo "<ul>";
-                                                            	foreach ($hostsVulnerable as $hostname) {
-                                                            	       echo "<li class='ml-4'>".$hostname["hostname"]."</li>";   
-                                                            	   }
-                                                            echo "</ul>";
-                                                    	}
-                                                	?>
-                                            	</td>
-                                            </tr>
-                                        </tbody>
-                                        <?php $cont+=1;}?>
-                                    </table>
-                                </div>
-                            </div>
+						<div  class="row mt-5 ">                       
+                        	<h3 class="title-2">Sumário Brasília</h3>
+                        	<a class="ml-auto" href="summaryController.php?action=snapshot">Snapshot <i class="fas fa-camera"></i></a>
                         </div>
+                        <canvas id="<?=$scan_history_name[0]?>" width="400" height="100"></canvas>
+                        <div class="row ">  
+                            <h3 class="title-2">Sumário Rio</h3>
+                            <a  class="ml-auto" href="summaryController.php?action=snapshot">Snapshot <i class="fas fa-camera"></i></a>
+						</div>                            
+                        <canvas id="<?=$scan_history_name[1]?>" width="400" height="100"></canvas>
+                        <div class="row ">  
+	                        <h3 class="title-2">Sumário São Paulo</h3>
+    	                    <a class="ml-auto" href="summaryController.php?action=snapshot">Snapshot <i class="fas fa-camera"></i></a>
+	                    </div>
+                        <canvas id="<?=$scan_history_name[2]?>" width="400" height="100"></canvas>
+                        
                     </div>
                 </div>
             </div>
          </div> 
+         <?php foreach ($scan_history_name as $name) {?>
+             
+     
          <script>
-         
-            var ctx = document.getElementById("history").getContext('2d');
+            var ctx = document.getElementById("<?=$name?>").getContext('2d');
             var myChart = new Chart(ctx, {
             	    "type": "line",
             	    "data": {
@@ -166,4 +146,5 @@ foreach ($scan_history as $history) {
             	    "options": {}
             	});
         </script> 
+        <?php }?>
 <?php require_once('footer.php')?>

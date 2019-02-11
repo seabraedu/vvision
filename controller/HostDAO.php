@@ -1,5 +1,5 @@
 <?php
-echo source;
+
 require_once($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."Vvision".DIRECTORY_SEPARATOR.'config.php');
 
 class HostDAO {
@@ -99,6 +99,23 @@ class HostDAO {
             array_push($return_array, $host);
         }
         return $return_array;
+    }
+    public static function getHostHistory($hostname):array {
+        
+        if(preg_match("/^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|(\w+|\.|\-|\_)*)$/",$hostname)){
+            return true;
+        }
+        else{
+            $sql = new Sql();
+            $result = $sql->select("select h.*,from_unixtime(s.last_modification_date,('%d-%m-%y')) as last_modification_date from hosts h inner join scans s on h.scan_id = s.id where h.hostname = :HOSTNAME order by s.last_modification_date asc; ",array(":HOSTNAME"=>$hostname));
+            return $result;
+        }
+        
+    }
+    public static function getHostVulnerabilities($hostname):array {
+        $sql = new Sql();
+        $result = $sql->select("select h.hostname,s.id,v.scan_id,h.scan_id, v.name, v.severity from hosts h inner join scans s on h.scan_id = s.id inner join vulnerability v on v.host_id=h.id where v.scan_id=s.id and h.hostname = :HOSTNAME and s.last_modification_date = (select max(s.last_modification_date) from hosts h inner join scans s on h.scan_id = s.id inner join vulnerability v on v.host_id = h.id where h.hostname = :HOSTNAME and v.scan_id=s.id ) order by v.severity desc; ",array(":HOSTNAME"=>$hostname));
+        return $result;
     }
     
 }

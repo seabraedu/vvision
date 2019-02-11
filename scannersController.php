@@ -8,6 +8,7 @@ switch ($_GET['action']){
         $scanner->setUsername($_POST['username']);    
         //isso deve serCriptografado, porém deve ser capaz de decriptografar pois para geração do token se faz necessario a senha em claro.
         $scanner->setPassword($_POST['password']);
+        $scanner->setNome($_POST['nome']);
         ScannerDAO::updateScanner($scanner);
         break;
     case 'delete':
@@ -16,7 +17,7 @@ switch ($_GET['action']){
         break;
     case 'insert':
         $scanner= new Scanner();
-        if($scanner->setHost($_POST['hostname']) && $scanner->setPort($_POST['port']) && $scanner->setUsername($_POST['username']) && $scanner->setPassword($_POST['password'])){
+        if($scanner->setHost($_POST['hostname']) && $scanner->setPort($_POST['port']) && $scanner->setUsername($_POST['username']) && $scanner->setPassword($_POST['password']) && $scanner->setNome($_POST['nome'])){
             ScannerDAO::insertScanner($scanner);
         }
         break;

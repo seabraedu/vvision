@@ -14644,3 +14644,12 @@ section {
 .vue-lists ul, .vue-lists ol {
     padding-left: 30px;
 }
+
+.vulnerability {
+    background: url('../images/icon/vulnerability.png');
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+    
+    /* Other styles here */
+}
